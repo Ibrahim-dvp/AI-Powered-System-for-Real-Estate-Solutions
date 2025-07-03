@@ -7,6 +7,7 @@ This guide will help you set up the complete AI-powered real estate system on yo
 ### 📋 Prerequisites
 
 Before starting, ensure you have:
+
 - **Python 3.11+** installed
 - **Node.js 20+** installed
 - **Docker and Docker Compose** installed
@@ -61,7 +62,8 @@ cp .env.example .env
 #### 2.1 Get Baserow Credentials
 
 1. **Login to Baserow**: Navigate to `https://dayta.intelligentb2b.com`
-2. **Get API Token**: 
+2. **Get API Token**:
+
    - Go to Settings → API tokens
    - Create new token with full permissions
    - Copy token to `.env` file as `BASEROW_TOKEN`
@@ -121,7 +123,7 @@ cd services/lead-scoring
 python app.py
 # Service will run on http://localhost:5001
 
-# Terminal 2: Property Search Service  
+# Terminal 2: Property Search Service
 cd services/property-search
 python app.py
 # Service will run on http://localhost:5002
@@ -205,12 +207,14 @@ For each workflow, update the connection settings:
 #### 5.2 Configure Real Estate Assistant
 
 1. **Create New Model**:
+
    - Go to Admin Panel → Models
    - Click "Add Model"
    - Name: `real-estate-assistant`
    - Base Model: `gpt-4o-mini`
 
 2. **Set System Prompt**:
+
 ```
 You are an intelligent real estate assistant for the Italian market. You help users find properties, provide market insights, and assist with real estate decisions. You have access to a comprehensive database of properties and can perform searches, valuations, and recommendations.
 
@@ -280,21 +284,25 @@ python scripts/test_email_campaigns.py
 #### 7.2 Manual Testing Checklist
 
 **Lead Scoring:**
+
 - [ ] Create test lead in Baserow
 - [ ] Trigger scoring via API
 - [ ] Check score updates in dashboard
 
 **Property Search:**
+
 - [ ] Search properties with filters
 - [ ] Test recommendation engine
 - [ ] Verify similar properties function
 
 **Email Marketing:**
+
 - [ ] Create test campaign
 - [ ] Send test email
 - [ ] Track open/click rates
 
 **Data Collection:**
+
 - [ ] Test external API connections
 - [ ] Verify data import to Baserow
 - [ ] Check automated workflows
@@ -358,6 +366,7 @@ docker-compose -f docker-compose.prod.yml exec nginx certbot --nginx
 #### Common Issues and Solutions
 
 **1. Baserow Connection Errors**
+
 ```bash
 # Check network connectivity
 curl -I https://dayta.intelligentb2b.com
@@ -370,6 +379,7 @@ python scripts/verify_baserow_tables.py
 ```
 
 **2. Service Startup Failures**
+
 ```bash
 # Check Docker logs
 docker-compose logs [service-name]
@@ -382,6 +392,7 @@ netstat -tulpn | grep :5001
 ```
 
 **3. n8n Workflow Issues**
+
 ```bash
 # Check n8n logs
 docker-compose logs n8n
@@ -394,6 +405,7 @@ curl -X POST http://localhost:5678/webhook/test
 ```
 
 **4. Open WebUI Integration Problems**
+
 ```bash
 # Check API connectivity
 curl -X POST http://localhost:5001/api/search \
@@ -424,6 +436,7 @@ Once your system is running:
 ### 🎉 Success Validation
 
 Your system is successfully deployed when:
+
 - [ ] All services show "healthy" status
 - [ ] Baserow tables are created and populated
 - [ ] n8n workflows are active
