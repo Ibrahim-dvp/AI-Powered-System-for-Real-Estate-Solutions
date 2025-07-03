@@ -1,0 +1,105 @@
+version: '3.8'
+
+services:
+  lead-scoring:
+    build:
+      context: ./lead-scoring-service
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000"
+    environment:
+      - FLASK_ENV=production
+      - BASEROW_API_URL=${BASEROW_API_URL}
+      - BASEROW_TOKEN=${BASEROW_TOKEN}
+      - BASEROW_PROPERTIES_TABLE_ID=${BASEROW_PROPERTIES_TABLE_ID}
+      - BASEROW_LEADS_TABLE_ID=${BASEROW_LEADS_TABLE_ID}
+      - BASEROW_INTERACTIONS_TABLE_ID=${BASEROW_INTERACTIONS_TABLE_ID}
+      - BASEROW_USERS_TABLE_ID=${BASEROW_USERS_TABLE_ID}
+    restart: unless-stopped
+
+  property-search:
+    build:
+      context: ./property-search-service
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5000"
+    environment:
+      - FLASK_ENV=production
+      - BASEROW_API_URL=${BASEROW_API_URL}
+      - BASEROW_TOKEN=${BASEROW_TOKEN}
+      - BASEROW_PROPERTIES_TABLE_ID=${BASEROW_PROPERTIES_TABLE_ID}
+      - BASEROW_USERS_TABLE_ID=${BASEROW_USERS_TABLE_ID}
+    restart: unless-stopped
+
+  property-valuation:
+    build:
+      context: ./property-valuation-service
+      dockerfile: Dockerfile
+    ports:
+      - "5003:5000"
+    environment:
+      - FLASK_ENV=production
+      - BASEROW_API_URL=${BASEROW_API_URL}
+      - BASEROW_TOKEN=${BASEROW_TOKEN}
+      - BASEROW_PROPERTIES_TABLE_ID=${BASEROW_PROPERTIES_TABLE_ID}
+      - BASEROW_MARKET_DATA_TABLE_ID=${BASEROW_MARKET_DATA_TABLE_ID}
+    restart: unless-stopped
+
+  email-marketing:
+    build:
+      context: ./email-marketing-service
+      dockerfile: Dockerfile
+    ports:
+      - "5004:5000"
+    environment:
+      - FLASK_ENV=production
+      - BASEROW_API_URL=${BASEROW_API_URL}
+      - BASEROW_TOKEN=${BASEROW_TOKEN}
+      - BASEROW_EMAIL_CAMPAIGNS_TABLE_ID=${BASEROW_EMAIL_CAMPAIGNS_TABLE_ID}
+      - BASEROW_USERS_TABLE_ID=${BASEROW_USERS_TABLE_ID}
+      - SMTP_SERVER=${SMTP_SERVER}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - SENDER_EMAIL=${SENDER_EMAIL}
+    restart: unless-stopped
+
+  dashboard-analytics:
+    build:
+      context: ./dashboard-analytics-service
+      dockerfile: Dockerfile
+    ports:
+      - "5005:5000"
+    environment:
+      - FLASK_ENV=production
+      - BASEROW_API_URL=${BASEROW_API_URL}
+      - BASEROW_TOKEN=${BASEROW_TOKEN}
+      - BASEROW_ANALYTICS_TABLE_ID=${BASEROW_ANALYTICS_TABLE_ID}
+      - BASEROW_DEALS_TABLE_ID=${BASEROW_DEALS_TABLE_ID}
+      - BASEROW_LEADS_TABLE_ID=${BASEROW_LEADS_TABLE_ID}
+      - BASEROW_PROPERTIES_TABLE_ID=${BASEROW_PROPERTIES_TABLE_ID}
+    restart: unless-stopped
+
+  data-collection:
+    build:
+      context: ./data-collection-service
+      dockerfile: Dockerfile
+    ports:
+      - "5006:5000"
+    environment:
+      - FLASK_ENV=production
+      - BASEROW_API_URL=${BASEROW_API_URL}
+      - BASEROW_TOKEN=${BASEROW_TOKEN}
+      - BASEROW_PROPERTIES_TABLE_ID=${BASEROW_PROPERTIES_TABLE_ID}
+      - BASEROW_MARKET_DATA_TABLE_ID=${BASEROW_MARKET_DATA_TABLE_ID}
+      - IMMOBILIARE_API_KEY=${IMMOBILIARE_API_KEY}
+      - IDEALISTA_CLIENT_ID=${IDEALISTA_CLIENT_ID}
+      - IDEALISTA_CLIENT_SECRET=${IDEALISTA_CLIENT_SECRET}
+      - QUOTAZIONI_API_KEY=${QUOTAZIONI_API_KEY}
+    restart: unless-stopped
+
+# You would typically have an Nginx or Caddy proxy in front of these services
+# For simplicity, this docker-compose exposes each service directly.
+# For production, consider adding an Nginx service as shown in deployment_guide.md
+
+

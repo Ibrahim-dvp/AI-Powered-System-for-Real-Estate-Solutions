@@ -1,0 +1,67 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "webhook/lead-tracking",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook - Lead Tracking",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "json": {
+        "id": "1"
+      },
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://lead-scoring:5000/api/score-lead",
+        "options": {},
+        "body": "={{JSON.stringify($json.body)}}",
+        "jsonParameters": true,
+        "sendBody": true
+      },
+      "name": "HTTP Request - Score Lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "json": {
+        "id": "2"
+      },
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "={{$env.BASEROW_LEADS_TABLE_ID}}",
+        "rowId": "={{$json.body.baserow_row_id}}",
+        "data": "={\"Lead Score\": $json.lead_score, \"Lead Stage\": $json.lead_stage}"
+      },
+      "name": "Baserow - Update Lead Score",
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "json": {
+        "id": "3"
+      },
+      "position": [720, 300]
+    }
+  ],
+  "connections": {
+    "Webhook - Lead Tracking": {
+      "main": [
+        [
+          { "node": "HTTP Request - Score Lead", "index": 0 }
+        ]
+      ]
+    },
+    "HTTP Request - Score Lead": {
+      "main": [
+        [
+          { "node": "Baserow - Update Lead Score", "index": 0 }
+        ]
+      ]
+    }
+  }
+}
+

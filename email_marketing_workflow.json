@@ -1,0 +1,66 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "webhook/send-email",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook - Send Email",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "json": {
+        "id": "1"
+      },
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://email-marketing:5000/api/send-welcome-email",
+        "options": {},
+        "body": "={{JSON.stringify($json.body)}}",
+        "jsonParameters": true,
+        "sendBody": true
+      },
+      "name": "HTTP Request - Send Welcome Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "json": {
+        "id": "2"
+      },
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "tableId": "={{$env.BASEROW_EMAIL_CAMPAIGNS_TABLE_ID}}",
+        "data": "={\"Campaign Name\": \"Welcome Email\", \"Recipient Email\": $json.body.user_data.email, \"Status\": \"Sent\"}"
+      },
+      "name": "Baserow - Log Campaign",
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "json": {
+        "id": "3"
+      },
+      "position": [720, 300]
+    }
+  ],
+  "connections": {
+    "Webhook - Send Email": {
+      "main": [
+        [
+          { "node": "HTTP Request - Send Welcome Email", "index": 0 }
+        ]
+      ]
+    },
+    "HTTP Request - Send Welcome Email": {
+      "main": [
+        [
+          { "node": "Baserow - Log Campaign", "index": 0 }
+        ]
+      ]
+    }
+  }
+}
+
