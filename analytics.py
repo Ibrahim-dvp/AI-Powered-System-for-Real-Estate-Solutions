@@ -15,7 +15,7 @@ analytics_bp = Blueprint('analytics', __name__)
 class DashboardAnalytics:
     def __init__(self):
         self.baserow_config = {
-            'api_url': os.getenv('BASEROW_API_URL', 'https://daytaa.intelligentb2b.com/api'),
+            'api_url': os.getenv('BASEROW_API_URL', 'https://dayta.intelligentb2b.com/api'),
             'token': os.getenv('BASEROW_TOKEN', ''),
             'users_table_id': os.getenv('BASEROW_USERS_TABLE_ID', ''),
             'properties_table_id': os.getenv('BASEROW_PROPERTIES_TABLE_ID', ''),

@@ -24,7 +24,7 @@ class EmailMarketingService:
         }
         
         self.baserow_config = {
-            'api_url': os.getenv('BASEROW_API_URL', 'https://daytaa.intelligentb2b.com/api'),
+            'api_url': os.getenv('BASEROW_API_URL', 'https://dayta.intelligentb2b.com/api'),
             'token': os.getenv('BASEROW_TOKEN', ''),
             'users_table_id': os.getenv('BASEROW_USERS_TABLE_ID', ''),
             'campaigns_table_id': os.getenv('BASEROW_CAMPAIGNS_TABLE_ID', '')

@@ -3,7 +3,7 @@
 ## Quick Start Deployment
 
 ### Prerequisites Checklist
-- [ ] Access to Baserow instance at daytaa.intelligentb2b.com
+- [ ] Access to Baserow instance at dayta.intelligentb2b.com
 - [ ] Access to Open WebUI instance at ai.intelligentb2b.com  
 - [ ] Docker and Docker Compose installed
 - [ ] Python 3.11+ installed
@@ -26,7 +26,7 @@ cp .env.example .env
 
 #### Required Environment Variables
 ```bash
-BASEROW_API_URL=https://daytaa.intelligentb2b.com/api
+BASEROW_API_URL=https://dayta.intelligentb2b.com/api
 BASEROW_TOKEN=your_baserow_token_here
 BASEROW_PROPERTIES_TABLE_ID=your_properties_table_id
 BASEROW_USERS_TABLE_ID=your_users_table_id

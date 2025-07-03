@@ -45,7 +45,7 @@ class DataCollectionService:
         
         # Baserow configuration
         self.baserow_config = {
-            'api_url': os.getenv('BASEROW_API_URL', 'https://daytaa.intelligentb2b.com/api'),
+            'api_url': os.getenv('BASEROW_API_URL', 'https://dayta.intelligentb2b.com/api'),
             'token': os.getenv('BASEROW_TOKEN', ''),
             'properties_table_id': os.getenv('BASEROW_PROPERTIES_TABLE_ID', ''),
             'market_data_table_id': os.getenv('BASEROW_MARKET_DATA_TABLE_ID', '')
@@ -642,7 +642,7 @@ def get_collection_status():
             },
             'baserow': {
                 'configured': bool(os.getenv('BASEROW_TOKEN')),
-                'url': os.getenv('BASEROW_API_URL', 'https://daytaa.intelligentb2b.com/api')
+                'url': os.getenv('BASEROW_API_URL', 'https://dayta.intelligentb2b.com/api')
             },
             'scraping': {
                 'enabled': True,

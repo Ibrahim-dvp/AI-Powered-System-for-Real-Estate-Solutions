@@ -12,7 +12,7 @@ import os
 lead_scoring_bp = Blueprint('lead_scoring', __name__)
 
 # Configuration
-BASEROW_API_URL = "https://daytaa.intelligentb2b.com/api"
+BASEROW_API_URL = "https://dayta.intelligentb2b.com/api"
 BASEROW_TOKEN = os.getenv('BASEROW_TOKEN', 'your_baserow_token_here')
 
 class LeadScoringModel:

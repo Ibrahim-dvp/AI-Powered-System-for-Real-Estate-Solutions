@@ -2,7 +2,7 @@
 
 ## 🎯 Executive Summary
 
-**Congratulations!** Your comprehensive AI-powered real estate system is now complete and ready for deployment. This system integrates seamlessly with your existing infrastructure (Baserow at daytaa.intelligentb2b.com and Open WebUI at ai.intelligentb2b.com) to provide a complete business automation and intelligence platform.
+**Congratulations!** Your comprehensive AI-powered real estate system is now complete and ready for deployment. This system integrates seamlessly with your existing infrastructure (Baserow at dayta.intelligentb2b.com and Open WebUI at ai.intelligentb2b.com) to provide a complete business automation and intelligence platform.
 
 ## ✅ What's Been Delivered
 
@@ -92,7 +92,7 @@
 1. **Review Documentation** - Start with `deployment_guide.md`
 2. **Configure Environment Variables** - Set up API keys and database connections
 3. **Install Dependencies** - Python, Docker, and required packages
-4. **Test Baserow Connection** - Verify access to daytaa.intelligentb2b.com
+4. **Test Baserow Connection** - Verify access to dayta.intelligentb2b.com
 
 ### **Phase 2: Service Deployment** (2-4 hours)
 1. **Deploy Core Services** - Start with lead scoring and property search

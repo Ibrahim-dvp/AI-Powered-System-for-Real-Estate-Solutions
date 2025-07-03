@@ -3,7 +3,7 @@ import requests
 import json
 
 # Configuration from environment variables or direct input
-BASEROW_API_URL = os.getenv("BASEROW_API_URL", "https://daytaa.intelligentb2b.com/api")
+BASEROW_API_URL = os.getenv("BASEROW_API_URL", "https://dayta.intelligentb2b.com/api")
 BASEROW_TOKEN = os.getenv("BASEROW_TOKEN")
 
 if not BASEROW_TOKEN:

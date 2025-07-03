@@ -6,7 +6,7 @@ from datetime import datetime
 property_search_bp = Blueprint('property_search', __name__)
 
 # Configuration
-BASEROW_API_URL = "https://daytaa.intelligentb2b.com/api"
+BASEROW_API_URL = "https://dayta.intelligentb2b.com/api"
 BASEROW_TOKEN = os.getenv('BASEROW_TOKEN', 'your_baserow_token_here')
 
 @property_search_bp.route('/search-properties', methods=['POST'])

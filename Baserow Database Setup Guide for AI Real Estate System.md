@@ -1,6 +1,6 @@
 # Baserow Database Setup Guide for AI Real Estate System
 
-**Baserow Instance:** daytaa.intelligentb2b.com  
+**Baserow Instance:** dayta.intelligentb2b.com  
 **Date:** January 7, 2025
 
 ## Database Schema Implementation
