@@ -1,0 +1,203 @@
+# AI-Powered Real Estate System - Database ERD
+
+# Core Entities
+users: {
+  shape: sql_table
+  user_id: int {constraint: primary_key}
+  email: varchar(255) {constraint: unique}
+  phone: varchar(20)
+  first_name: varchar(50)
+  last_name: varchar(50)
+  date_of_birth: date
+  annual_income: decimal
+  lead_score: int
+  lead_grade: enum
+  registration_date: timestamp
+  user_status: enum
+  privacy_consent: boolean
+  created_at: timestamp
+  updated_at: timestamp
+}
+
+properties: {
+  shape: sql_table
+  property_id: int {constraint: primary_key}
+  external_id: varchar(100)
+  property_type: enum
+  listing_type: enum
+  title: varchar(200)
+  description: text
+  address: varchar(300)
+  city: varchar(100)
+  region: varchar(100)
+  latitude: decimal
+  longitude: decimal
+  square_meters: int
+  bedrooms: int
+  bathrooms: int
+  current_price: decimal
+  listing_date: date
+  status: enum
+  days_on_market: int
+  agent_id: int {constraint: foreign_key}
+  created_at: timestamp
+  updated_at: timestamp
+}
+
+leads: {
+  shape: sql_table
+  lead_id: int {constraint: primary_key}
+  user_id: int {constraint: foreign_key}
+  email: varchar(255)
+  first_name: varchar(50)
+  last_name: varchar(50)
+  lead_source: enum
+  lead_status: enum
+  lead_score: int
+  budget_min: decimal
+  budget_max: decimal
+  timeline: enum
+  assigned_agent_id: int {constraint: foreign_key}
+  conversion_date: date
+  conversion_value: decimal
+  created_at: timestamp
+  updated_at: timestamp
+}
+
+property_images: {
+  shape: sql_table
+  image_id: int {constraint: primary_key}
+  property_id: int {constraint: foreign_key}
+  image_url: varchar(500)
+  image_type: enum
+  display_order: int
+  is_primary: boolean
+  alt_text: varchar(200)
+  created_at: timestamp
+}
+
+user_interactions: {
+  shape: sql_table
+  interaction_id: int {constraint: primary_key}
+  user_id: int {constraint: foreign_key}
+  session_id: varchar(100)
+  interaction_type: enum
+  property_id: int {constraint: foreign_key}
+  page_url: varchar(500)
+  time_spent: int
+  device_type: enum
+  created_at: timestamp
+}
+
+property_valuations: {
+  shape: sql_table
+  valuation_id: int {constraint: primary_key}
+  property_id: int {constraint: foreign_key}
+  valuation_type: enum
+  estimated_value: decimal
+  confidence_score: int
+  valuation_method: enum
+  valuation_date: date
+  valid_until: date
+  created_at: timestamp
+}
+
+email_campaigns: {
+  shape: sql_table
+  campaign_id: int {constraint: primary_key}
+  campaign_name: varchar(200)
+  campaign_type: enum
+  subject_line: varchar(200)
+  email_content: text
+  scheduled_date: timestamp
+  campaign_status: enum
+  total_recipients: int
+  open_rate: decimal
+  click_rate: decimal
+  created_at: timestamp
+  updated_at: timestamp
+}
+
+chatbot_conversations: {
+  shape: sql_table
+  conversation_id: int {constraint: primary_key}
+  user_id: int {constraint: foreign_key}
+  platform: enum
+  conversation_status: enum
+  lead_qualified: boolean
+  appointment_scheduled: boolean
+  satisfaction_rating: int
+  started_at: timestamp
+  ended_at: timestamp
+  total_messages: int
+  created_at: timestamp
+}
+
+chatbot_messages: {
+  shape: sql_table
+  message_id: int {constraint: primary_key}
+  conversation_id: int {constraint: foreign_key}
+  sender_type: enum
+  message_content: text
+  message_type: enum
+  intent_detected: varchar(100)
+  confidence_score: int
+  timestamp: timestamp
+}
+
+# Junction Tables for Many-to-Many Relationships
+email_recipients: {
+  shape: sql_table
+  recipient_id: int {constraint: primary_key}
+  campaign_id: int {constraint: foreign_key}
+  user_id: int {constraint: foreign_key}
+  email_status: enum
+  sent_at: timestamp
+  opened_at: timestamp
+  clicked_at: timestamp
+  bounced_at: timestamp
+}
+
+lead_property_interest: {
+  shape: sql_table
+  interest_id: int {constraint: primary_key}
+  lead_id: int {constraint: foreign_key}
+  property_id: int {constraint: foreign_key}
+  interest_level: enum
+  notes: text
+  created_at: timestamp
+}
+
+property_views: {
+  shape: sql_table
+  view_id: int {constraint: primary_key}
+  user_id: int {constraint: foreign_key}
+  property_id: int {constraint: foreign_key}
+  view_duration: int
+  view_source: enum
+  created_at: timestamp
+}
+
+# Relationships
+users -> leads: "1:M"
+users -> user_interactions: "1:M"
+users -> chatbot_conversations: "1:M"
+users -> email_recipients: "1:M"
+users -> property_views: "1:M"
+
+properties -> property_images: "1:M"
+properties -> property_valuations: "1:M"
+properties -> user_interactions: "1:M"
+properties -> lead_property_interest: "1:M"
+properties -> property_views: "1:M"
+
+leads -> lead_property_interest: "1:M"
+
+email_campaigns -> email_recipients: "1:M"
+
+chatbot_conversations -> chatbot_messages: "1:M"
+
+# Agent relationships (Users table serves as agents too)
+properties.agent_id -> users.user_id: "M:1"
+leads.assigned_agent_id -> users.user_id: "M:1"
+
